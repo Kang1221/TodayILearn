@@ -63,6 +63,20 @@ public interface CrudRepository<T, ID extends Serializable>
 
 <br>
 
+📍 우리가 보통 JPARepository를 상속받아 구현해 findAll 메소드를 사용하면 리턴타입이  `List`임!
+
+그런데 이 CrudRepository의 findAll 리턴타입은 `Iterable`임을 확인할 수 있음.
+
+우리가 편하게 JPARepository의 List 리턴타입의 findAll을 쓸 수 있는 이유는 JPARepository가 ListCrudRepository를 상속받기 때문!
+
+> `ListCrudRepository` <br>
+It offers equivalent methods, 
+but they return List where the CrudRepository methods return an Iterable.
+
+
+
+<br><br>
+
 `PagingAndSortingRepository`
 
 On top of the CrudRepository there is a PagingAndSortingRepository.
@@ -77,6 +91,44 @@ public interface PagingAndSortingRepository<T, ID extends Serializable>
   Page<T> findAll(Pageable pageable);
 }
 ```
+➡️  Paging 기능, sorting 제공
+
+
+
+<br>
+
+> `ListPagingAndSortingRepository`
+> <br>
+It offers equivalent methods, but returns a List where the PagingAndSortingRepository methods return an Iterable
+> <br><br>
+> ➡️ 같은 기능이지만 리턴타입이 `List` 이도록! 
+
+<br>
+
+In addition to query methods, query derivation for both count and delete queries is available. 
+The following list shows the interface definition for a derived count query:
+- count query
+```java
+interface UserRepository extends CrudRepository<User, Long> {
+
+long countByLastname(String lastname);
+}
+```
+
+- delete query
+```java
+interface UserRepository extends CrudRepository<User, Long> {
+
+  long deleteByLastname(String lastname);
+
+  List<User> removeByLastname(String lastname);
+}
+```
+
+
+<br>
+<br>
+
 
 ---
 
