@@ -82,6 +82,8 @@ but they return List where the CrudRepository methods return an Iterable.
 On top of the CrudRepository there is a PagingAndSortingRepository.
 It adds additional methods to ease paginated access to entities
 
+CrudRepository를 상속하여 페이징 처리 기능을 추가함
+
 ```java
 public interface PagingAndSortingRepository<T, ID extends Serializable> 
   extends CrudRepository<T, ID> {
